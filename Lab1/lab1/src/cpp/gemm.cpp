@@ -34,7 +34,13 @@ py::array_t<TYPE> gemm (
     // Compute GEMM
     
     /***** Write your code here *****/
-
+    for(int i=0; i< a_buf.shape[0]; i++){
+        for(int j=0; j< b_buf.shape[1]; j++){
+            for(int k=0; k < a_buf.shape[1]; k++ ){
+                c_buf[i][j] += a_buf[i][k] * b_buf[k][j];
+            }
+        }
+    }
     return C;
 }
 
