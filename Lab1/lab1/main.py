@@ -17,7 +17,7 @@ LABELS_FILE  = 'ILSVRC2012_validation_ground_truth.json'
 
 WEIGHT_FILE  = 'weights.pth'
 
-BATCH_SIZE = 10
+BATCH_SIZE = 1
 
 def infer(img, weights):
 
@@ -79,6 +79,7 @@ if __name__ == '__main__':
 
     start = time.time()
 
+    print("image size:", len(imgs))
     for i in range(len(imgs)):
         print("Inferring image ", img_list[i])
         pred = infer(imgs[i], weights)

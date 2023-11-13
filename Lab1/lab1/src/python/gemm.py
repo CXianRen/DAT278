@@ -3,7 +3,7 @@
 import sys, os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
-# import cpp.build.gemm as clib
+import cpp.build.gemm as clib
 
 def gemm(A, B, C):
     
@@ -11,7 +11,7 @@ def gemm(A, B, C):
     assert A.shape[1] == B.shape[0]
     assert B.shape[1] == C.shape[1]
 
-    return gemm_py(A, B, C)
+    #return gemm_py(A, B, C)
 
     return gemm_cpp(A, B, C)
 

@@ -36,6 +36,6 @@ for line in itertools.islice(filePtr, 1, None):
         continue
 
 
-print(" Avg. CPU power : %.4f W\nTotal CPU energy: %.4f J" % (avg_cpupower/i, total_cpuenergy/1000000))
+print(" Avg. CPU power : %.4f W\nTotal CPU energy: %.4f J" % (AVE_cpupower/i, total_energy/1000000))
 
 filePtr.close()
