@@ -34,7 +34,10 @@ py::array_t<TYPE> gemm (
     // Compute GEMM
     
     /***** Write your code here *****/
+    //omp_set_num_threads(12);
     #pragma omp parallel for
+    //{
+    //#pragma omp for
     for(int i=0; i< a_buf.shape[0]; i++){
         for(int k=0; k < a_buf.shape[1]; k++ )
         {
@@ -44,6 +47,7 @@ py::array_t<TYPE> gemm (
             }
         }
     }
+    //}
     return C;
 }
 

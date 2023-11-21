@@ -7,12 +7,21 @@
 
 #include "gemmCuda.cuh"
 #define TYPE float
-#define BLOCK_SIZE 32
+#define BLOCK_SIZE 16  // best reuslt
 
 
 __global__ void gemmCUDA(TYPE* a, TYPE* b, TYPE* c, int n_row, int n_col, int n)
 {
     /*Write your gemm kernel here*/
+    int Row = blockIdx.y * blockDim.y + threadIdx.y;
+    int Col = blockIdx.x * blockDim.x + threadIdx.x;
+    if(Row< n_row && Col < n_col)
+    {
+        for(int i=0; i <n; i++)
+        {
+            c[Row * n_col + Col] += a[Row * n +i] * b[i * n_col + Col];
+        }
+    }
 }
 
 
