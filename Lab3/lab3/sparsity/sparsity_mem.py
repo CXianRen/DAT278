@@ -2,6 +2,9 @@
 
 import numpy as np
 import time
+import sys
+
+from memory_profiler import profile
 
 from scipy.sparse import rand
 from scipy.sparse import coo_matrix, csc_matrix, csr_matrix
@@ -18,10 +21,11 @@ LAYER_SIZES = [
 
 DENSITIES = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.01]
 
+
 if __name__ == '__main__':
 
     # Generate a MxN matrix with density 'd' (in COO format)
-    layer = LAYER_SIZES[1]
+    layer = LAYER_SIZES[0]
     M = layer['M']
     N = layer['N']
     K = layer['K']
@@ -32,20 +36,22 @@ if __name__ == '__main__':
 
     # Convert matrix
     # matrix = matrix.tocsr()
-    # matrix = matrix.todense()
     A_d = A.todense()
-    B_d = B.todense()
-    C_d = C.todense()
+    A_csr = A.tocsr()
     
-    start = time.time()
-
-    # Write the code whose power you want to measure here
-    for i in range(500):
-        C_d = A_d * B_d + C_d
-
-    end = time.time()
-
-    print('  Total time(ms) = ', int(  (end - start) * 1000))
-    print('Start Time = ', int(start * 1000))
-    print('  End Time = ', int(  end * 1000))
+    print("Dense:")
+    print("Size:", A_d.size*8)
     
+    print("COO:")
+    # print(A.data.size)
+    # print(A.col.size)
+    # print(A.row.size)
+    # double + int32 + int32 
+    print("Size:", A.data.size * (8+4+4))
+
+    print("CSR:")
+    # print(A_csr.data.size)
+    # print(A_csr.indices.size)
+    # print(A_csr.indptr.size)
+    # double  int32 int32
+    print("Size:", A.data.size * (8+4) + A_csr.indptr.size*4)
